@@ -36,7 +36,7 @@ public class ListaLigada implements EstruturaElementar{
             atual = atual.getProximo();
             indice++;
         }
-        return 0; // Return -1 if the element is not found
+        return 0; // 
     }
 
     @Override
