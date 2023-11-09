@@ -7,19 +7,36 @@ public class ListaLigada implements EstruturaElementar{
     private No cabeca;
 
     public ListaLigada() {
+        cabeca = null;
 
     }
 
     @Override
     public boolean buscaElemento(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscaElemento'");
+        No atual = cabeca;
+        while (atual != null) {
+            if (atual.getValor() == valor) {
+                return true;
+            }
+            atual = atual.getProximo();
+        }
+        return false;
     }
+
+    
 
     @Override
     public int buscaIndice(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscaIndice'");
+       No atual = cabeca;
+        int indice = 0;
+        while (atual != null) {
+            if (atual.getValor() == valor) {
+                return indice; // Return the index if the element is found
+            }
+            atual = atual.getProximo();
+            indice++;
+        }
+        return 0; // Return -1 if the element is not found
     }
 
     @Override
@@ -60,14 +77,27 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public void insereInicio(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insereInicio'");
-    }
+        if(this.cabeca == null){
+            this.cabeca = new No(valor);
+        }else {
+            No n = new No(valor);
+            n.setProximo(this.cabeca);
+            this.cabeca = n;
+        }   
+        }
 
     @Override
     public void insereFim(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insereFim'");
+         No novoNo = new No(valor);
+        if (cabeca == null) {
+            cabeca = novoNo;
+        } else {
+            No atual = cabeca;
+            while (atual.getProximo() != null) {
+                atual = atual.getProximo();
+            }
+            atual.setProximo(novoNo);
+        }
     }
 
     @Override
