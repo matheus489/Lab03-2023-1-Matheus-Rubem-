@@ -41,39 +41,104 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public int minimo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'minimo'");
+        if (cabeca == null) {
+            throw new IllegalStateException("Empty list");
+        }
+
+        No atual = cabeca;
+        int min = atual.getValor();
+        while (atual != null) {
+            min = Math.min(min, atual.getValor());
+            atual = atual.getProximo();
+        }
+        return min;
     }
 
     @Override
     public int maximo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'maximo'");
+        if (cabeca == null) {
+            throw new IllegalStateException("Empty list");
+        }
+
+        No atual = cabeca;
+        int max = atual.getValor();
+        while (atual != null) {
+            max = Math.max(max, atual.getValor());
+            atual = atual.getProximo();
+        }
+        return max;
     }
 
     @Override
     public int predecessor(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'predecessor'");
+        No atual = cabeca;
+        int predecessor = Integer.MIN_VALUE;
+        while (atual != null) {
+            if (atual.getValor() == valor) {
+                return predecessor;
+            }
+            predecessor = atual.getValor();
+            atual = atual.getProximo();
+        }
+        return Integer.MIN_VALUE; // Return minimum integer value if predecessor not found
     }
 
     @Override
     public int sucessor(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sucessor'");
+        No atual = cabeca;
+        while (atual != null && atual.getProximo() != null) {
+            if (atual.getValor() == valor) {
+                return atual.getProximo().getValor();
+            }
+            atual = atual.getProximo();
+        }
+        return Integer.MIN_VALUE; // Return minimum integer value if successor not found
     }
 
     @Override
     public void insereElemento(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insereElemento'");
+        No novoNo = new No(valor);
+        if (cabeca == null) {
+            cabeca = novoNo;
+        } else {
+            No atual = cabeca;
+            while (atual.getProximo() != null) {
+                atual = atual.getProximo();
+            }
+            atual.setProximo(novoNo);
+        }
     }
+    
 
     @Override
     public void insereElementoPosicao(int valor, int buscaIndice) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insereElementoPosicao'");
+        No novoNo = new No(valor);
+        if (buscaIndice < 0) {
+            throw new IllegalArgumentException("Invalid index");
+        }
+
+        if (buscaIndice == 0) {
+            novoNo.setProximo(cabeca);
+            cabeca = novoNo;
+            return;
+        }
+
+        No atual = cabeca;
+        int indice = 0;
+
+        while (indice < buscaIndice - 1 && atual != null) {
+            atual = atual.getProximo();
+            indice++;
+        }
+
+        if (atual != null) {
+            novoNo.setProximo(atual.getProximo());
+            atual.setProximo(novoNo);
+        } else {
+            throw new IndexOutOfBoundsException("Index out of bounds");
+        }
     }
+    
 
     @Override
     public void insereInicio(int valor) {
@@ -102,26 +167,74 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public void remove(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        if (cabeca == null) {
+            return; // Empty list, nothing to remove
+        }
+
+        if (cabeca.getValor() == valor) {
+            cabeca = cabeca.getProximo(); // Remove the first element
+            return;
+        }
+
+        No atual = cabeca;
+        while (atual.getProximo() != null && atual.getProximo().getValor() != valor) {
+            atual = atual.getProximo();
+        }
+
+        if (atual.getProximo() != null) {
+            atual.setProximo(atual.getProximo().getProximo()); // Remove the element
+        }
+    
     }
 
     @Override
     public void removeIndice(int indice) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeIndice'");
+        if (cabeca == null) {
+            return; // Empty list, nothing to remove
+        }
+
+        if (indice == 0) {
+            cabeca = cabeca.getProximo(); // Remove the first element
+            return;
+        }
+
+        No atual = cabeca;
+        int atualIndice = 0;
+        while (atual.getProximo() != null && atualIndice < indice - 1) {
+            atual = atual.getProximo();
+            atualIndice++;
+        }
+
+        if (atual.getProximo() != null) {
+            atual.setProximo(atual.getProximo().getProximo()); // Remove the element
+        }
+    
     }
 
     @Override
     public void removeInicio() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeInicio'");
+        if (cabeca != null) {
+            cabeca = cabeca.getProximo(); // Remove the first element
+        }
+    
     }
 
     @Override
     public void removeFim() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeFim'");
+        if (cabeca == null) {
+            return; // Empty list, nothing to remove
+        }
+
+        if (cabeca.getProximo() == null) {
+            cabeca = null; // List has only one element, remove it
+            return;
+        }
+
+        No atual = cabeca;
+        while (atual.getProximo().getProximo() != null) {
+            atual = atual.getProximo();
+        }
+        atual.setProximo(null); // Remove the last element
     }
     
 }
