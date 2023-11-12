@@ -28,13 +28,14 @@ public class ListaLigada implements EstruturaElementar{
     @Override
     public int buscaIndice(int valor) {
        No atual = cabeca;
-        int indice = 0;
+    int indice = 0;
         while (atual != null) {
             if (atual.getValor() == valor) {
-                return indice; // Return the index if the element is found
+                return indice; 
             }
             atual = atual.getProximo();
             indice++;
+            
         }
         return 0; // 
     }
@@ -80,7 +81,7 @@ public class ListaLigada implements EstruturaElementar{
             predecessor = atual.getValor();
             atual = atual.getProximo();
         }
-        return Integer.MIN_VALUE; // Return minimum integer value if predecessor not found
+        return Integer.MIN_VALUE; 
     }
 
     @Override
@@ -92,7 +93,7 @@ public class ListaLigada implements EstruturaElementar{
             }
             atual = atual.getProximo();
         }
-        return Integer.MIN_VALUE; // Return minimum integer value if successor not found
+        return Integer.MIN_VALUE; 
     }
 
     @Override
@@ -126,7 +127,7 @@ public class ListaLigada implements EstruturaElementar{
         No atual = cabeca;
         int indice = 0;
 
-        while (indice < buscaIndice - 1 && atual != null) {
+        while (indice < buscaIndice -1 && atual != null) {
             atual = atual.getProximo();
             indice++;
         }
@@ -168,30 +169,31 @@ public class ListaLigada implements EstruturaElementar{
     @Override
     public void remove(int valor) {
         if (cabeca == null) {
-            return; // Empty list, nothing to remove
-        }
+            return; }
 
-        if (cabeca.getValor() == valor) {
-            cabeca = cabeca.getProximo(); // Remove the first element
-            return;
-        }
+            if (cabeca.getValor() == valor) {
+                cabeca = cabeca.getProximo(); 
+                return;
+            }
 
-        No atual = cabeca;
-        while (atual.getProximo() != null && atual.getProximo().getValor() != valor) {
-            atual = atual.getProximo();
-        }
+            No atual = cabeca;
+            while (atual.getProximo() != null && atual.getProximo().getValor() != valor) {
+                atual = atual.getProximo();
+            }
 
-        if (atual.getProximo() != null) {
-            atual.setProximo(atual.getProximo().getProximo()); // Remove the element
-        }
-    
-    }
+            if (atual.getProximo() != null) {
+                atual.setProximo(atual.getProximo().getProximo()); 
+            } else {
+                // Do nothing, element not found
+            }}
+        
 
     @Override
     public void removeIndice(int indice) {
         if (cabeca == null) {
             return; // Empty list, nothing to remove
         }
+
 
         if (indice == 0) {
             cabeca = cabeca.getProximo(); // Remove the first element
